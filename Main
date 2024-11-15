@@ -1,0 +1,55 @@
+
+import java.util.Scanner;
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+/**
+ *
+ * @author 05175422189
+ */
+public class Main {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        
+        System.out.println("Escolha a opção desejada: ");
+        System.out.println("(1) Mostrar contatos "); 
+        System.out.println("(2) Inserir dados");
+        int opcao = sc.nextInt();
+        
+        Main m = new Main();
+        switch(opcao){
+            case 1:
+                System.out.println("Opcao 1");
+                m.mostrarContatos();
+            case 2:
+                System.out.println("Opcao 2");
+                m.inserirContatos();
+            case 3:
+                System.out.println("opcao 3");
+            case 4:
+                System.out.println("opcao 4");
+            default:
+                System.out.println("Opcao invalida!");
+        }
+    }
+    
+    public void mostrarContatos(){
+        ConexaoMySQL conn = new ConexaoMySQL();
+        //inserir, select
+        conn.conexao("select");
+    }
+    
+    public void inserirContatos(){
+        ConexaoMySQL conn = new ConexaoMySQL();
+        //inserir, select
+        conn.conexao("inserir");
+    }
+}
