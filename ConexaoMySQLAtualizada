@@ -1,0 +1,65 @@
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.ResultSet;
+
+public class ConexaoMySQL {
+    
+public void conexao(String tipoEntrada) {
+        
+        String url = "jdbc:mysql://localhost:3306/agenda";  
+        String usuario = "root";  
+        String senha = "";  
+        try {
+            
+            Class.forName("com.mysql.cj.jdbc.Driver");  
+
+            
+            Connection conn = DriverManager.getConnection(url, usuario, senha);
+
+            
+            Statement stmt = conn.createStatement();
+            
+            if(tipoEntrada.equalsIgnoreCase("select")){
+                String sql = "SELECT id, nome, idade, dataCadastro FROM contatos";  
+                ResultSet rs = stmt.executeQuery(sql);  
+
+            
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String nome = rs.getString("nome");
+                String idade = rs.getString("idade");
+                String dataCadastro = rs.getString("dataCadastro");
+
+                System.out.println("ID: " + id + ", Nome: " + nome + ", Data Cadastro: " + dataCadastro + ", Idade: "+idade);
+            }
+
+            
+            rs.close();
+            }
+            
+            if(tipoEntrada.equalsIgnoreCase("inserir")){
+                String sql = "INSERT INTO contatos (id, nome, idade, dataCadastro) values (3,'joao','7','2024-04-21')";
+                int inseriu = stmt.executeUpdate(sql);
+                if(inseriu > 0){
+                    System.out.println("Inserido");
+                }else{
+                    System.out.println("nao inserido");
+                }
+            }
+            
+            stmt.close();
+            conn.close();
+
+        } catch (ClassNotFoundException e) {
+            System.out.println("Driver não encontrado!");
+            e.printStackTrace();
+        } catch (SQLException e) {
+            System.out.println("Erro de SQL: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+ 
+}
